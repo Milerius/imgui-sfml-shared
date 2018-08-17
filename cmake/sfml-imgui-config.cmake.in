@@ -1,0 +1,3 @@
+@PACKAGE_INIT@
+include("${CMAKE_CURRENT_LIST_DIR}/sfml-imgui-targets.cmake")
+check_required_components("sfml-imgui")
