@@ -13,7 +13,7 @@ find_package(OpenGL REQUIRED)
 
 ##! Library
 add_library(${PROJECT_NAME} SHARED sfml-imgui/imgui-SFML.cpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE imgui::imgui sfml-graphics OpenGL::GL)
+target_link_libraries(${PROJECT_NAME} PUBLIC imgui::imgui sfml-graphics OpenGL::GL)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/sfml-imgui>
