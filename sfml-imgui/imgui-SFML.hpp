@@ -11,6 +11,12 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Joystick.hpp>
 
+#if defined(WIN32)
+	#define DllExport   __declspec( dllexport ) 
+#else
+	#define DllExport
+#endif
+
 namespace sf
 {
     class Event;
@@ -30,76 +36,76 @@ namespace ImGui
 {
     namespace SFML
     {
-        void Init(sf::RenderWindow &window, bool loadDefaultFont = true);
-        void Init(sf::Window &window, sf::RenderTarget &target, bool loadDefaultFont = true);
+		DllExport void Init(sf::RenderWindow &window, bool loadDefaultFont = true);
+        DllExport void Init(sf::Window &window, sf::RenderTarget &target, bool loadDefaultFont = true);
 
-        void ProcessEvent(const sf::Event &event);
+        DllExport void ProcessEvent(const sf::Event &event);
 
-        void Update(sf::RenderWindow &window, sf::Time dt);
-        void Update(sf::Window &window, sf::RenderTarget &target, sf::Time dt);
-        void Update(const sf::Vector2i &mousePos, const sf::Vector2f &displaySize, sf::Time dt);
+        DllExport void Update(sf::RenderWindow &window, sf::Time dt);
+        DllExport void Update(sf::Window &window, sf::RenderTarget &target, sf::Time dt);
+        DllExport void Update(const sf::Vector2i &mousePos, const sf::Vector2f &displaySize, sf::Time dt);
 
-        void Render(sf::RenderTarget &target);
+        DllExport void Render(sf::RenderTarget &target);
 
-        void Shutdown();
+        DllExport void Shutdown();
 
-        void UpdateFontTexture();
-        sf::Texture &GetFontTexture();
+        DllExport void UpdateFontTexture();
+        DllExport sf::Texture &GetFontTexture();
 
         // joystick functions
-        void SetActiveJoystickId(unsigned int joystickId);
-        void SetJoytickDPadThreshold(float threshold);
-        void SetJoytickLStickThreshold(float threshold);
+        DllExport void SetActiveJoystickId(unsigned int joystickId);
+        DllExport void SetJoytickDPadThreshold(float threshold);
+        DllExport void SetJoytickLStickThreshold(float threshold);
 
-        void SetJoystickMapping(int action, unsigned int joystickButton);
-        void SetDPadXAxis(sf::Joystick::Axis dPadXAxis, bool inverted = false);
-        void SetDPadYAxis(sf::Joystick::Axis dPadYAxis, bool inverted = false);
-        void SetLStickXAxis(sf::Joystick::Axis lStickXAxis, bool inverted = false);
-        void SetLStickYAxis(sf::Joystick::Axis lStickYAxis, bool inverted = false);
+        DllExport void SetJoystickMapping(int action, unsigned int joystickButton);
+        DllExport void SetDPadXAxis(sf::Joystick::Axis dPadXAxis, bool inverted = false);
+        DllExport void SetDPadYAxis(sf::Joystick::Axis dPadYAxis, bool inverted = false);
+        DllExport void SetLStickXAxis(sf::Joystick::Axis lStickXAxis, bool inverted = false);
+        DllExport void SetLStickYAxis(sf::Joystick::Axis lStickYAxis, bool inverted = false);
     }
 
 // custom ImGui widgets for SFML stuff
 
 // Image overloads
-    void Image(const sf::Texture &texture,
+    DllExport void Image(const sf::Texture &texture,
                const sf::Color &tintColor = sf::Color::White,
                const sf::Color &borderColor = sf::Color::Transparent);
-    void Image(const sf::Texture &texture, const sf::Vector2f &size,
+    DllExport void Image(const sf::Texture &texture, const sf::Vector2f &size,
                const sf::Color &tintColor = sf::Color::White,
                const sf::Color &borderColor = sf::Color::Transparent);
-    void Image(const sf::Texture &texture, const sf::FloatRect &textureRect,
+    DllExport void Image(const sf::Texture &texture, const sf::FloatRect &textureRect,
                const sf::Color &tintColor = sf::Color::White,
                const sf::Color &borderColor = sf::Color::Transparent);
-    void Image(const sf::Texture &texture, const sf::Vector2f &size, const sf::FloatRect &textureRect,
+    DllExport void Image(const sf::Texture &texture, const sf::Vector2f &size, const sf::FloatRect &textureRect,
                const sf::Color &tintColor = sf::Color::White,
                const sf::Color &borderColor = sf::Color::Transparent);
 
-    void Image(const sf::Sprite &sprite,
+    DllExport void Image(const sf::Sprite &sprite,
                const sf::Color &tintColor = sf::Color::White,
                const sf::Color &borderColor = sf::Color::Transparent);
-    void Image(const sf::Sprite &sprite, const sf::Vector2f &size,
+    DllExport void Image(const sf::Sprite &sprite, const sf::Vector2f &size,
                const sf::Color &tintColor = sf::Color::White,
                const sf::Color &borderColor = sf::Color::Transparent);
 
 // ImageButton overloads
-    bool ImageButton(const sf::Texture &texture, const int framePadding = -1,
+    DllExport bool ImageButton(const sf::Texture &texture, const int framePadding = -1,
                      const sf::Color &bgColor = sf::Color::Transparent,
                      const sf::Color &tintColor = sf::Color::White);
-    bool ImageButton(const sf::Texture &texture, const sf::Vector2f &size, const int framePadding = -1,
+    DllExport bool ImageButton(const sf::Texture &texture, const sf::Vector2f &size, const int framePadding = -1,
                      const sf::Color &bgColor = sf::Color::Transparent, const sf::Color &tintColor = sf::Color::White);
 
-    bool ImageButton(const sf::Sprite &sprite, const int framePadding = -1,
+    DllExport bool ImageButton(const sf::Sprite &sprite, const int framePadding = -1,
                      const sf::Color &bgColor = sf::Color::Transparent,
                      const sf::Color &tintColor = sf::Color::White);
-    bool ImageButton(const sf::Sprite &sprite, const sf::Vector2f &size, const int framePadding = -1,
+    DllExport bool ImageButton(const sf::Sprite &sprite, const sf::Vector2f &size, const int framePadding = -1,
                      const sf::Color &bgColor = sf::Color::Transparent,
                      const sf::Color &tintColor = sf::Color::White);
 
 // Draw_list overloads. All positions are in relative coordinates (relative to top-left of the current window)
-    void DrawLine(const sf::Vector2f &a, const sf::Vector2f &b, const sf::Color &col, float thickness = 1.0f);
-    void DrawRect(const sf::FloatRect &rect, const sf::Color &color, float rounding = 0.0f, int rounding_corners = 0x0F,
+    DllExport void DrawLine(const sf::Vector2f &a, const sf::Vector2f &b, const sf::Color &col, float thickness = 1.0f);
+    DllExport void DrawRect(const sf::FloatRect &rect, const sf::Color &color, float rounding = 0.0f, int rounding_corners = 0x0F,
                   float thickness = 1.0f);
-    void DrawRectFilled(const sf::FloatRect &rect, const sf::Color &color, float rounding = 0.0f,
+    DllExport void DrawRectFilled(const sf::FloatRect &rect, const sf::Color &color, float rounding = 0.0f,
                         int rounding_corners = 0x0F);
 }
 
